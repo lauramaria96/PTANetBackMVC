@@ -1153,11 +1153,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lgomgonz\\source\\repos\\PTANetBackMVC\\WebApplication\\WebApplication\\WebApplication.csproj",
+      "projectUniqueName": "C:\\Users\\lgomgonz\\OneDrive - NTT DATA EMEAL\\Documents\\Github\\PTANetBackMVC\\WebApplication\\WebApplication\\WebApplication.csproj",
       "projectName": "WebApplication",
-      "projectPath": "C:\\Users\\lgomgonz\\source\\repos\\PTANetBackMVC\\WebApplication\\WebApplication\\WebApplication.csproj",
+      "projectPath": "C:\\Users\\lgomgonz\\OneDrive - NTT DATA EMEAL\\Documents\\Github\\PTANetBackMVC\\WebApplication\\WebApplication\\WebApplication.csproj",
       "packagesPath": "C:\\Users\\lgomgonz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lgomgonz\\source\\repos\\PTANetBackMVC\\WebApplication\\WebApplication\\obj\\",
+      "outputPath": "C:\\Users\\lgomgonz\\OneDrive - NTT DATA EMEAL\\Documents\\Github\\PTANetBackMVC\\WebApplication\\WebApplication\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\lgomgonz\\AppData\\Roaming\\NuGet\\NuGet.Config",

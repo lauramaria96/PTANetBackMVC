@@ -23,24 +23,32 @@ namespace WebApplication.Repository
         {
             Logger.Info("GetServiceProviderById");
             ServiceProvider provider = new ServiceProvider();
-            using (SqlConnection cn = new SqlConnection(_configuration.GetConnectionString("AzureConnection")))
+            try
             {
-                await cn.OpenAsync();
-                using (SqlCommand cmd = new SqlCommand("Select * from ServiceProviders WHERE BussinesId = @BussinesId", cn))
-                {
-                    cmd.Parameters.AddWithValue("@BusinessId", businessId);
-                    SqlDataReader dr = await cmd.ExecuteReaderAsync();
-                    while (await dr.ReadAsync())
+                using (SqlConnection cn = new SqlConnection(_configuration.GetConnectionString("AzureConnection")))              
                     {
-                        provider.BspCode = dr.GetString(0);
-                        provider.BspName = dr.GetString(1);
-                        provider.Country = dr.GetString(2);
-                        provider.BusinessId = dr.GetString(3);
-                        provider.CodingScheme = dr.GetString(4);
+                        await cn.OpenAsync();
+                        using (SqlCommand cmd = new SqlCommand("Select * from ServiceProviders WHERE BussinesId = @BussinesId", cn))
+                        {
+                            cmd.Parameters.AddWithValue("@BusinessId", businessId);
+                            SqlDataReader dr = await cmd.ExecuteReaderAsync();
+                            while (await dr.ReadAsync())
+                            {
+                                provider.BspCode = dr.GetString(0);
+                                provider.BspName = dr.GetString(1);
+                                provider.Country = dr.GetString(2);
+                                provider.BusinessId = dr.GetString(3);
+                                provider.CodingScheme = dr.GetString(4);
+                            }
+                        }
                     }
+                    Logger.Info("Result: \n" + "BspCode: " + provider.BspCode + "\nBspName: " + provider.BspName + "\nCountry: " + provider.Country + "\nBusinessId: " + provider.BusinessId + "\nCodingScheme: " + provider.CodingScheme)
                 }
-            }
-            Logger.Info("Result: \n" + "BspCode: " + provider.BspCode + "\nBspName: " + provider.BspName + "\nCountry: " + provider.Country + "\nBusinessId: " + provider.BusinessId + "\nCodingScheme: " + provider.CodingScheme)
+                catch (Exception ex)
+                {
+                    Logger.Error("Exception: " + ex.Message);
+                    Logger.Error("Not found businessId: " + businessId);
+                }
             return provider;
         }
 
@@ -51,25 +59,32 @@ namespace WebApplication.Repository
             Logger.Info("GetServiceProviders");
 
             List<ServiceProvider> providers = new List<ServiceProvider>();
-            using (SqlConnection cn = new SqlConnection(_configuration.GetConnectionString("AzureConnection")))
+            try
             {
-                await cn.OpenAsync();
-                using (SqlCommand cmd = new SqlCommand("Select * from ServiceProviders", cn))
+                using (SqlConnection cn = new SqlConnection(_configuration.GetConnectionString("AzureConnection")))
                 {
-                    SqlDataReader dr = await cmd.ExecuteReaderAsync();
-                    while (await dr.ReadAsync())
+                    await cn.OpenAsync();
+                    using (SqlCommand cmd = new SqlCommand("Select * from ServiceProviders", cn))
                     {
-                        ServiceProvider provider = new ServiceProvider();
-                        provider.BspCode = dr.GetString(0);
-                        provider.BspName = dr.GetString(1);
-                        provider.Country = dr.GetString(2);
-                        provider.BusinessId = dr.GetString(3);
-                        provider.CodingScheme = dr.GetString(4);
-                        providers.Add(provider);
+                        SqlDataReader dr = await cmd.ExecuteReaderAsync();
+                        while (await dr.ReadAsync())
+                        {
+                            ServiceProvider provider = new ServiceProvider();
+                            provider.BspCode = dr.GetString(0);
+                            provider.BspName = dr.GetString(1);
+                            provider.Country = dr.GetString(2);
+                            provider.BusinessId = dr.GetString(3);
+                            provider.CodingScheme = dr.GetString(4);
+                            providers.Add(provider);
+                        }
                     }
                 }
+                Logger.Info("List of providers: " + providers.Count.ToString());
             }
-            Logger.Info("List of providers: " + providers.Count.ToString());
+            catch (Exception ex)
+            {
+                Logger.Error("Exception: " + ex.Message);
+            }
             return providers;
         }
 
